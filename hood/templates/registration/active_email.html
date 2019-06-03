@@ -42,5 +42,56 @@ class Business(models.Model):
     def get_business(cls):
         business = Business.objects.all()
         return business
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
+    profile_photo= models.ImageField(upload_to='profiles/',null=True)
+    bio= models.CharField(max_length=240, null=True)
+    email = models.CharField(max_length=100, blank=True, null=True)
+
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+        post_save.connect(create_user_profile, sender=User)
+
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
+
+    @classmethod
+    def get_profile(cls):
+        profile = Profile.objects.all()
+        return profile
+
+    class Meta:
+        ordering = ['user']
+
+
+
+class Join(models.Model):
+	user_id = models.OneToOneField(User)
+	hood_id = models.ForeignKey(Hood)
+
+	def __str__(self):
+		return self.user_id
+
+class Posts(models.Model):
+	title = models.CharField(max_length = 300)
+	content = models.TextField()
+	posted_by = models.ForeignKey(User, null=True)
+	hood = models.ForeignKey(Hood)
+
+	def save_posts(self):
+		self.save()
+
+	def delete_posts(self):
+		self.delete()
+
+	def __str__(self):
+		return self.title
+        
             
             
