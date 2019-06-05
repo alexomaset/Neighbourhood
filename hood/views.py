@@ -25,10 +25,11 @@ def home(request):
             return render(request, 'hoods/hood.html', {"hood": hood, "businesses": businesses, "posts": posts})
         else:
             neighbourhoods = Hood.objects.all()
-            return render(request, 'index.html', {"neighbourhoods": neighbourhoods})
+            return render(request, 'home.html', {"neighbourhoods": neighbourhoods})
     else:
         neighbourhoods = Hood.objects.all()
-        return render(request, 'index.html', {"neighbourhoods": neighbourhoods})
+        return render(request, 'home.html', {"neighbourhoods": neighbourhoods})
+
 
 def new_business(request):
     current_user = request.user
@@ -46,7 +47,8 @@ def new_business(request):
         form = BusinessForm()
     return render(request, 'business.html', {"form": form})
 
-    @login_required(login_url='/accounts/login/')
+
+@login_required(login_url='/accounts/login/')
 def profile(request):
     profile = Profile.objects.get(user=request.user)
     hood = Hood.objects.filter(user=request.user).all()
@@ -72,11 +74,12 @@ def edit_profile(request):
         form = EditProfileForm(instance=profile)
     return render(request, 'profiles/edit_profile.html', {"form": form})
 
+
 def hoods(request):
 
     hood = Hood.objects.filter(user=request.user)
 
-    return render(request, 'hood/hood.html', {"hood": hood})
+    return render(request, 'neighbourhood/hood.html', {"hood": hood})
 
 
 @login_required(login_url='/accounts/login/')
@@ -111,11 +114,11 @@ def search(request):
         hood = Hood.search_hood(hood_search)
         message = f"{hood_search}"
 
-        return render(request, 'hood/search.html', {"message": message, "hood": hood})
+        return render(request, 'neighbourhood/search.html', {"message": message, "hood": hood})
 
     else:
         message = "You Haven't searched for any hood"
-        return render(request, 'hoods/search.html', {"message": message})
+        return render(request, 'neighbourhood/search.html', {"message": message})
 
 
 @login_required(login_url='/accounts/login/')
@@ -174,7 +177,7 @@ def create_hood(request):
         return redirect('home')
     else:
         form = CreateHoodForm()
-    return render(request, 'hoods/create_hood.html', {"form": form})
+    return render(request, 'neighbourhood/create_hood.html', {"form": form})
 
 
 @login_required(login_url='/accounts/login/')
