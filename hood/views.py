@@ -20,9 +20,9 @@ def home(request):
             hood = Hood.objects.get(pk=request.user.join.hood_id.id)
             posts = Posts.objects.filter(hood=request.user.join.hood_id.id)
             businesses = Business.objects.filter(
-                hood=request.user.join.hood_id.id)
+            hood = request.user.join.hood_id.id)
 
-            return render(request, 'hoods/hood.html', {"hood": hood, "businesses": businesses, "posts": posts})
+            return render(request, 'neighbourhood/hood.html', {"hood": hood, "businesses": businesses, "posts": posts})
         else:
             neighbourhoods = Hood.objects.all()
             return render(request, 'home.html', {"neighbourhoods": neighbourhoods})
@@ -137,7 +137,7 @@ def create_post(request):
                 return redirect('home')
         else:
             form = PostForm()
-        return render(request, 'posts/createpost.html', {"form": form})
+        return render(request, 'posts/post.html', {"form": form})
 
 
 @login_required(login_url='/accounts/login/')

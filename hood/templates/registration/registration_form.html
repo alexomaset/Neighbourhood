@@ -3,16 +3,20 @@
 {% block content %}
 <br>
 
-<div class="container-fluid authen">
-  <header class="text-center" style="font-size: 40px;"><img src="/static/img/logo.png" alt="" style="max-width:20rem;"></header>
-  <br>
+<div class="container">
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      <div class="card card-default">
-        <div class="card-heading">
-          <h3 class="text-center">Sign In</h3>
-        </div>
+      <!-- Empty div -->
+      <div class="col-md-6 col-sm-12">
+          <img src="https://www.canva.com/photos/MADaACMG6AY-perfect-neighbourhood/?utm_source=partner&utm_channel=pexels&utm_campaign=search" alt="phone image" class="" height="640px" width="470px" id='imgd'>
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+          </div>
+      </div>
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
@@ -30,7 +34,7 @@
             {% endfor %}
             <div class="form-group">
               <input type="submit" class="btn btn-outline-success btn-sm" value="Sign Up">
-              <p class="text">Do you already have an account?<a style="color:green;" class="btn btn-default" href="/accounts/login/">Sign In</a></p>
+              <p class="text">Already have an account?<a style="color:green;" class="btn btn-default" href="/accounts/login/">Sign In</a></p>
             </div>
             <input type="hidden" name="next" value="{{next}}">
 
