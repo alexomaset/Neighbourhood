@@ -26,6 +26,7 @@ os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 from decouple import config, Csv
 MODE=config("MODE", default='dev')
 SECRET_KEY = config('SECRET_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
